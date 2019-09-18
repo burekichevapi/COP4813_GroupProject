@@ -6,8 +6,15 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<style>
+    #footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+}
+</style>
 <!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
+<footer class="footer">
     <hr>
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
@@ -20,13 +27,9 @@
 
                 <!-- Content -->
                 <h5 class="text-uppercase">Add things for footer here</h5>
-                <p>Blah B;ah BLAH!!</p>
+                <p>Blah Blah BLAH!!</p>
 
             </div>
-            <!-- Grid column -->
-
-            <hr class="clearfix w-100 d-md-none pb-3">
-
             <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
 
@@ -35,43 +38,24 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#!">Home</a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a href="#!">About</a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a href="#!">Contact</a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a href="#!">Something</a>
                     </li>
+                    <li>
+                        <a href="#!">Something</a>
+                    </li>                    
                 </ul>
-
             </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
             <div class="col-md-3 mb-md-0 mb-3">
-
-                <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="#!">Link 1</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 2</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 3</a>
-                    </li>
-                    <li>
-                        <a href="#!">Link 4</a>
-                    </li>
-                </ul>
-
+                <p class="text-muted">&copy; 2019</p>
             </div>
             <!-- Grid column -->
 
