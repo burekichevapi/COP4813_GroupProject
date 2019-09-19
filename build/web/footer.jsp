@@ -38,16 +38,16 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">Home</a>
+                        <a href="index.html">Home</a>
                     </li>
                     <li>
-                        <a href="#!">About</a>
+                        <a href="about.jsp">About</a>
                     </li>
                     <li>
-                        <a href="#!">Contact</a>
+                        <a href="contact.jsp">Contact</a>
                     </li>
                     <li>
-                        <a href="#!">Something</a>
+                        <a href="login.jsp">Login</a>
                     </li>
                     <li>
                         <a href="#!">Something</a>

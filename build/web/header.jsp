@@ -15,8 +15,8 @@
     <div class="nav-scroller py-1 mb-2">
         <nav class="nav d-flex">
             <a class="p-2 text-muted" href="index.html">Home</a>
-            <a class="p-2 text-muted" href="#">About</a>
-            <a class="p-2 text-muted" href="#">Contact</a>
+            <a class="p-2 text-muted" href="about.jsp">About</a>
+            <a class="p-2 text-muted" href="contact.jsp">Contact</a>
             <a class="p-2 text-muted" href="#">Something</a>
             <a class="p-2 text-muted" href="#">Something</a>
             <a class="p-2 text-muted" href="login.jsp">Login</a>
