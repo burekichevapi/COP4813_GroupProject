@@ -8,14 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>TODO supply a title</title>        
-        <script src="//code.jquery.com/jquery-3.3.1.js"></script>
-        <script>
-            $(function () {
-                $("#header").load("header.jsp");
-                $("#footer").load("footer.jsp");
-            });
-        </script>
+        <title>Login</title>        
         <link href="css/loginPage.css" rel="stylesheet">
     </head>
     <body class="text-center">
@@ -34,5 +27,12 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
         <div id="footer"></div>
+        <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+        <script>
+            $(function () {
+                $("#header").load("header.jsp");
+                $("#footer").load("footer.jsp");
+            });
+        </script>
     </body>
 </html>

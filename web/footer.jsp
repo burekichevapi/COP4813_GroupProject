@@ -38,7 +38,7 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.jsp">Home</a>
                     </li>
                     <li>
                         <a href="about.jsp">About</a>

@@ -13,11 +13,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <div class="nav-scroller py-1 mb-2">
+        <div></div>
         <nav class="nav d-flex">
-            <a class="p-2 text-muted" href="index.html">Home</a>
+            <a class="p-2 text-muted" href="index.jsp">Home</a>
             <a class="p-2 text-muted" href="about.jsp">About</a>
             <a class="p-2 text-muted" href="contact.jsp">Contact</a>
-            <a class="p-2 text-muted" href="#">Something</a>
+            <a class="p-2 text-muted" href="registration.jsp">Register</a>
             <a class="p-2 text-muted" href="#">Something</a>
             <a class="p-2 text-muted" href="login.jsp">Login</a>
             <form class="form-inline mt-2 mt-md-0">
