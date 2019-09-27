@@ -24,12 +24,14 @@ public class User
     private Date _birthdate;
     private String _aboutMe;
     
-
     @Id
     @GeneratedValue
     public Long getId()
-    {
-        return _id;
-    }
+    {return _id;}
+    
+    public void setId(long id)
+    {_id = id;}
+    
+    
     
 }

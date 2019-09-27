@@ -13,7 +13,8 @@
     </head>
     <body class="text-center">
         <div id="header"></div>
-        <form class="form-signin">
+        <form action="Controllers/FrontAccountController" method="POST"
+              class="form-signin" >
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label class="sr-only">Email address</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -24,7 +25,7 @@
                     <input type="checkbox" value="rememberMe"> Remember me
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" name="signInButton">Sign in</button>
         </form>
         <div id="footer"></div>
         <script src="//code.jquery.com/jquery-3.3.1.js"></script>
