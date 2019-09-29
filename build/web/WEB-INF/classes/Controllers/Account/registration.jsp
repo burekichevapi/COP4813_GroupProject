@@ -9,7 +9,7 @@
 <html>
     <head>
         <title>Register</title>
-        <link href="../css/loginPage.css" rel="stylesheet">
+        <link href="loginPage.css" rel="stylesheet">
     </head>
     <body class="text-center">
         <div id="header"></div>

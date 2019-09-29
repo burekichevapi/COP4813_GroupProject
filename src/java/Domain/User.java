@@ -32,6 +32,16 @@ public class User
     public void setId(long id)
     {_id = id;}
     
+    public String getEmail()
+    {return _email;}
     
+    public void setEmail(String email)
+    {_email = email;}
+    
+    public String getPassword()
+    {return _password;}
+    
+    public void setPassword(String password)
+    {_password = password;}    
     
 }

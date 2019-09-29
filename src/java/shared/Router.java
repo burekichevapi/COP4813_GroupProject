@@ -7,15 +7,13 @@ package shared;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author Amer Delic
  */
-public class Router
+public class Router<C>
 {
 
     private HttpServletRequest _request;
@@ -26,9 +24,9 @@ public class Router
         _request = request;
     }
 
-    public String GetPage(Class controller)
+    public String GetPageFor(C controller)
     {
-        Method[] methods = controller.getDeclaredMethods();
+        Method[] methods = controller.getClass().getDeclaredMethods();
         
         for (Method method : methods) 
         {    
@@ -37,7 +35,7 @@ public class Router
             if (annotation != null) 
                 if (_request.getParameter(annotation.buttonName()) != null)
                         try {
-                            return invokeButtonMethod(method);
+                            return invokeButtonMethod(controller, method);
             }
             catch (IllegalAccessException | InvocationTargetException ex) {
                 System.err.println("Button Method Error." + ex);
@@ -48,12 +46,12 @@ public class Router
         return _errorPage;
     }
 
-    private String invokeButtonMethod(Method buttonMethod)
+    private String invokeButtonMethod(C controller, Method buttonMethod)
             throws IllegalAccessException, InvocationTargetException
     {
         String resultInvoke = "Could not invoke method";
         try {
-            resultInvoke = (String) buttonMethod.invoke(null);
+            resultInvoke = (String) buttonMethod.invoke(controller);
         }
         catch (IllegalAccessException ex) {
             System.err.println("(invoke) Button method is not public." + ex);
