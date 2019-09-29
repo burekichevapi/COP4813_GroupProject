@@ -14,7 +14,7 @@
     
     <servlet>
         <servlet-name>AccountController</servlet-name>
-        <servlet-class>Controllers.FrontAccountController</servlet-class>
+        <servlet-class>Controllers.Account.AccountControllerFront</servlet-class>
         <init-param>
             <param-name>createTables</param-name>
             <param-value>true</param-value> <!-- true = doesn't save data if server is restarted = create tables... use this only once when creating tables. -->
@@ -22,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AccountController</servlet-name>
-        <url-pattern>/Controllers/FrontAccountController</url-pattern>
+        <url-pattern>/Controllers/Account/AccountControllerFront</url-pattern>
     </servlet-mapping>
     
 </web-app>

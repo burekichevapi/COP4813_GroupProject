@@ -9,17 +9,17 @@
 <html>
     <head>
         <title>Login</title>        
-        <link href="css/loginPage.css" rel="stylesheet">
+        <link href="../css/loginPage.css" rel="stylesheet">
     </head>
     <body class="text-center">
         <div id="header"></div>
-        <form action="Controllers/FrontAccountController" method="POST"
+        <form action="AccountControllerFront" method="POST"
               class="form-signin" >
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
             <label class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password">
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="rememberMe"> Remember me

@@ -18,9 +18,17 @@
             <a class="p-2 text-muted" href="index.jsp">Home</a>
             <a class="p-2 text-muted" href="about.jsp">About</a>
             <a class="p-2 text-muted" href="contact.jsp">Contact</a>
-            <a class="p-2 text-muted" href="registration.jsp">Register</a>
+            
+            <form action="Controllers/Account/AccountControllerFront" method="POST">
+            <input class="p-2 text-muted" name="registerationButton" type="submit" value="Register" style="background:none; border-width:0px; color:blue;" />
+            </form>
+            
             <a class="p-2 text-muted" href="#">Something</a>
-            <a class="p-2 text-muted" href="login.jsp">Login</a>
+            
+            <form action="Controllers/Account/AccountControllerFront" method="POST">
+            <input class="p-2 text-muted" name="signInButton" type="submit" value="Login" style="background:none; border-width:0px; color:blue;" />
+            </form>
+            
             <form class="form-inline mt-2 mt-md-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search Posts" aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
