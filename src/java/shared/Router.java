@@ -18,11 +18,20 @@ public class Router<C>
 
     private HttpServletRequest _request;
     private final String _errorPage = "error.jsp";
+    private String _path = "/WEB-INF/classes/Controllers/";
 
-    public Router(HttpServletRequest request)
+    public Router(HttpServletRequest request, String controllerPackageName)
     {
         _request = request;
+        _path += controllerPackageName + "/";
     }
+    
+    public void setRouteTo(String page)
+    {
+        _path += page;
+    }
+    
+    public String getRoute(){return _path;}
 
     public String GetPageFor(C controller)
     {
@@ -30,7 +39,7 @@ public class Router<C>
         
         for (Method method : methods) 
         {    
-            ButtonMethod annotation = method.getAnnotation(ButtonMethod.class);
+            DestinationPage annotation = method.getAnnotation(DestinationPage.class);
             
             if (annotation != null) 
                 if (_request.getParameter(annotation.buttonName()) != null)

@@ -5,15 +5,16 @@
  */
 package Controllers.Account;
 
-import Domain.User;
+import repository.AccountRepository;
+import Domain.Account;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import shared.ButtonMethod;
 import shared.Router;
 import shared.Session;
+import shared.DestinationPage;
 
 /**
  *
@@ -26,8 +27,8 @@ public class AccountController
     private HttpServletResponse _response;
     private Session<AccountController> _session;
     private Router<AccountController> _router;
-    private AccountContext _accountContext;
-    private User _user;
+    private AccountRepository _accountRepo;
+    private Account _user;
 
     AccountController(HttpServlet servlet, HttpServletRequest request,
             HttpServletResponse response)
@@ -36,9 +37,9 @@ public class AccountController
         _request = request;
         _response = response;
         _session = new Session<AccountController>(_request);
-        _router = new Router<AccountController>(_request);
-        _accountContext = new AccountContext();
-        _user = new User();
+        _router = new Router<AccountController>(_request, "Account");
+        _accountRepo = new AccountRepository();
+        _user = new Account();
     }
 
     static void initHibernate(HttpServlet servlet)
@@ -46,10 +47,10 @@ public class AccountController
         Boolean createTables = Boolean.parseBoolean(servlet.getInitParameter("createTables"));
 
         if (createTables) {
-            hibernate.HibernateHelper.createTable(Domain.User.class);
+            hibernate.HibernateHelper.createTable(Domain.Account.class);
         }
 
-        hibernate.HibernateHelper.initSessionFactory(Domain.User.class);
+        hibernate.HibernateHelper.initSessionFactory(Domain.Account.class);
     }
 
     public void doGet()
@@ -58,52 +59,50 @@ public class AccountController
         _request.getSession().setAttribute("user", _user);
         
         String page = _router.GetPageFor(this);
+        
+        _router.setRouteTo(page);
 
-        _request.getRequestDispatcher(jspAddress(page))
+        _request.getRequestDispatcher(_router.getRoute())
                 .forward(_request, _response);
     }
 
     public void doPost()
             throws ServletException, IOException
     {
-        _user = (User) _session.getSessionData(Session.State.READ, _user,
+        _user = (Account) _session.getSessionData(Session.State.READ, _user,
                 "user");
         
         String page = _router.GetPageFor(this);
         
         _request.getSession().setAttribute("user", _user);
+        
+        _router.setRouteTo(page);
 
-        _request.getRequestDispatcher(jspAddress(page))
+        _request.getRequestDispatcher(_router.getRoute())
                 .forward(_request, _response);
     }
 
-    public User getUser()
+    public Account getUser()
     { return _user; }
 
-    @ButtonMethod(buttonName = "loginButton", isDefault = true)
+    @DestinationPage(buttonName = "loginButton", isDefault = true)
     public String logIn()
     {
         return "login.jsp";
     }
 
-    @ButtonMethod(buttonName = "registerationButton")
+    @DestinationPage(buttonName = "registerationButton")
     public String Register()
     {
         return "registration.jsp";
     }
     
-    @ButtonMethod(buttonName = "signInButton")
+    @DestinationPage(buttonName = "signInButton")
     public String signIn()
     {
         _session.MapDataFromRequest(_user);
         
         return "success.jsp";
     }
-
-    private String jspAddress(String page)
-    {
-        return "/WEB-INF/classes/Controllers/Account/" + page;
-    }
-    
 
 }

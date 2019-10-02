@@ -15,7 +15,7 @@ import javax.persistence.Id;
  * @author Amer Delic
  */
 @Entity
-public class User
+public class Account
 {
     private Long _id;
     private String _userName;

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controllers.Account;
+package repository;
 
-import Domain.User;
+import Domain.Account;
 import hibernate.HibernateHelper;
 import java.util.List;
 
@@ -13,13 +13,13 @@ import java.util.List;
  *
  * @author Amer Delic
  */
-public class AccountContext
+public class AccountRepository
 {
-    public User FindUserByEmail(String email)
+    public Account FindUserByEmail(String email)
     {
-        List<User> usersInDB = HibernateHelper.getListData(User.class);
+        List<Account> usersInDB = HibernateHelper.getListData(Account.class);
 
-        for (User user : usersInDB) {
+        for (Account user : usersInDB) {
             if (IsFoundBy(email, user.getEmail())) {
                 return user;
             }
