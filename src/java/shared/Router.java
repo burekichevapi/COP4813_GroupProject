@@ -18,20 +18,11 @@ public class Router<C>
 
     private HttpServletRequest _request;
     private final String _errorPage = "error.jsp";
-    private String _path = "/WEB-INF/classes/Controllers/";
 
-    public Router(HttpServletRequest request, String controllerPackageName)
+    public Router(HttpServletRequest request)
     {
         _request = request;
-        _path += controllerPackageName + "/";
     }
-    
-    public void setRouteTo(String page)
-    {
-        _path += page;
-    }
-    
-    public String getRoute(){return _path;}
 
     public String GetPageFor(C controller)
     {
@@ -44,7 +35,7 @@ public class Router<C>
             if (annotation != null) 
                 if (_request.getParameter(annotation.buttonName()) != null)
                         try {
-                            return invokeButtonMethod(controller, method);
+                            return "/" + invokeButtonMethod(controller, method);
             }
             catch (IllegalAccessException | InvocationTargetException ex) {
                 System.err.println("Button Method Error." + ex);

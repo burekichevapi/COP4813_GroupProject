@@ -37,7 +37,7 @@ public class AccountController
         _request = request;
         _response = response;
         _session = new Session<AccountController>(_request);
-        _router = new Router<AccountController>(_request, "Account");
+        _router = new Router<AccountController>(_request);
         _accountRepo = new AccountRepository();
         _user = new Account();
     }
@@ -60,25 +60,21 @@ public class AccountController
         
         String page = _router.GetPageFor(this);
         
-        _router.setRouteTo(page);
-
-        _request.getRequestDispatcher(_router.getRoute())
+        _request.getRequestDispatcher(page)
                 .forward(_request, _response);
     }
 
     public void doPost()
             throws ServletException, IOException
     {
+        _request.getSession().setAttribute("user", _user);
+        
         _user = (Account) _session.getSessionData(Session.State.READ, _user,
                 "user");
         
         String page = _router.GetPageFor(this);
-        
-        _request.getSession().setAttribute("user", _user);
-        
-        _router.setRouteTo(page);
 
-        _request.getRequestDispatcher(_router.getRoute())
+        _request.getRequestDispatcher(page)
                 .forward(_request, _response);
     }
 
@@ -94,7 +90,7 @@ public class AccountController
     @DestinationPage(buttonName = "registerationButton")
     public String Register()
     {
-        return "registration.jsp";
+        return "success.jsp";
     }
     
     @DestinationPage(buttonName = "signInButton")
