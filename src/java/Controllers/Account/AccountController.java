@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import shared.Router;
 import shared.Session;
 import shared.DestinationPage;
+import shared.Validator;
 
 /**
  *
@@ -29,6 +30,7 @@ public class AccountController
     private Router<AccountController> _router;
     private AccountRepository _accountRepo;
     private Account _user;
+    private Validator _validate;
 
     AccountController(HttpServlet servlet, HttpServletRequest request,
             HttpServletResponse response)
@@ -40,17 +42,17 @@ public class AccountController
         _router = new Router<AccountController>(_request);
         _accountRepo = new AccountRepository();
         _user = new Account();
+        _validate = new Validator();
     }
 
     static void initHibernate(HttpServlet servlet)
     {
         Boolean createTables = Boolean.parseBoolean(servlet.getInitParameter("createTables"));
+        
+        if (createTables)
+            repository.HibernateHelper.createTable(Domain.Account.class);
 
-        if (createTables) {
-            hibernate.HibernateHelper.createTable(Domain.Account.class);
-        }
-
-        hibernate.HibernateHelper.initSessionFactory(Domain.Account.class);
+        repository.HibernateHelper.initSessionFactory(Domain.Account.class);
     }
 
     public void doGet()
@@ -58,7 +60,9 @@ public class AccountController
     {   
         _request.getSession().setAttribute("user", _user);
         
-        String page = _router.GetPageFor(this);
+        _user = (Account) _session.GetSessionData(Session.State.IGNORE, _user, "user");
+        
+        String page = _router.RouteDestinationPageFor(this);
         
         _request.getRequestDispatcher(page)
                 .forward(_request, _response);
@@ -68,11 +72,12 @@ public class AccountController
             throws ServletException, IOException
     {
         _request.getSession().setAttribute("user", _user);
+        _request.getSession().setAttribute("errors", _validate);
         
-        _user = (Account) _session.getSessionData(Session.State.READ, _user,
-                "user");
+        _user = (Account) _session.GetSessionData(Session.State.READ,
+                _user, "user");
         
-        String page = _router.GetPageFor(this);
+        String page = _router.RouteDestinationPageFor(this);
 
         _request.getRequestDispatcher(page)
                 .forward(_request, _response);
@@ -80,17 +85,47 @@ public class AccountController
 
     public Account getUser()
     { return _user; }
-
-    @DestinationPage(buttonName = "loginButton", isDefault = true)
+    
+    @DestinationPage(isDefault = true)
     public String logIn()
+    {
+        if(_accountRepo.FindAccountByEmail(_user.getEmail()) == null)
+            return "registration.jsp";
+        
+        return "index.jsp";
+    }
+
+    @DestinationPage(buttonName = "loginButton")
+    public String index()
     {
         return "login.jsp";
     }
+    
+    @DestinationPage(buttonName = "logOut")
+    public String logOut()
+    {
+        _request.getSession().removeAttribute("user");
+        _request.getSession().invalidate();
+        return "index.jsp";
+    }
 
     @DestinationPage(buttonName = "registerationButton")
-    public String Register()
+    public String register()
     {
-        return "success.jsp";
+        _session.MapDataFromRequest(_user);
+        
+        if(!_validate.isValid(_user) ||
+                _accountRepo.FindAccountByEmail(_user.getEmail()) != null)
+        {
+            _user = null;
+            
+            return "registration.jsp";
+        }
+        
+        _accountRepo.AddNewAccount(_user);
+        
+        return "index.jsp";
+        
     }
     
     @DestinationPage(buttonName = "signInButton")
@@ -98,7 +133,10 @@ public class AccountController
     {
         _session.MapDataFromRequest(_user);
         
-        return "success.jsp";
+        if(_validate.isValid(_user))
+            return "success.jsp";
+        
+        return "error.jsp";
     }
 
 }

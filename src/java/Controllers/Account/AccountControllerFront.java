@@ -8,6 +8,7 @@ package Controllers.Account;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +17,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Amer Delic
  */
-@WebServlet("/AccountControllerFront")
+
+@WebServlet(urlPatterns ="/AccountControllerFront",
+initParams ={ @WebInitParam(name = "createTables", value = "true")})
+
 public class AccountControllerFront extends HttpServlet
 {
+    public void init() throws ServletException
+    {
+        AccountController.initHibernate(this);
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
@@ -30,10 +38,5 @@ public class AccountControllerFront extends HttpServlet
             throws ServletException, IOException
     {
         new AccountController(this, request, response).doPost();
-    }
-
-    public void init() throws ServletException
-    {
-        AccountController.initHibernate(this);
     }
 }

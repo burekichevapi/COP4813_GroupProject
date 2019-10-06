@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hibernate;
+package repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,77 +19,68 @@ import org.hibernate.criterion.Restrictions;
 
 public class HibernateHelper
 {
-    static protected List<Class> listClasses = new ArrayList<Class>();
-    static protected SessionFactory sessionFactory;
+    static protected List<Class> _listOfClasses = new ArrayList<Class>();
+    static protected SessionFactory _sessionFactory;
 
-    static public void initSessionFactory(Properties props, Class... mappings) //hibernate uses this to maintain 
+    static public void initSessionFactory(Class... mappings) //hibernate uses this to maintain 
     {                                                                          //its own session separate from TomCat
-        if (addMappings(listClasses, mappings)) {
-            closeSessionFactory(sessionFactory);
-            sessionFactory = createFactory(props, listClasses);
+        if (addMappings(_listOfClasses, mappings)) {
+            closeSessionFactory(_sessionFactory);
+            _sessionFactory = createFactory(_listOfClasses);
         }
-    }
-
-    static public void initSessionFactory(Class... mappings)
-    {
-        initSessionFactory(null, mappings);
-    }
-
-    static public void createTable(Properties props, Class... mappings)
-    {
-        List<Class> tempList = new ArrayList<Class>();
-        SessionFactory tempFactory = null;
-
-        addMappings(tempList, mappings);
-        if (props == null) {
-            props = new Properties();
-        }
-        props.setProperty(Environment.HBM2DDL_AUTO, "create");
-        tempFactory = createFactory(props, tempList);
-        closeSessionFactory(tempFactory);
     }
 
     static public void createTable(Class... mappings)
     {
-        createTable(null, mappings);
+        List<Class> tempList = new ArrayList<Class>();
+
+        addMappings(tempList, mappings);
+        
+        Properties props = new Properties();
+        
+        props.setProperty(Environment.HBM2DDL_AUTO, "create");
+        
+        SessionFactory tempFactory = createFactory(tempList);
+        
+        closeSessionFactory(tempFactory);
     }
 
     static protected boolean addMappings(List<Class> list, Class... mappings)
-    {
-        boolean bNewClass = false;
+    {   //This method is doing 2 very different thigns, needs to be split up
+        boolean isNewClass = false;
+        
         for (Class mapping : mappings) {
             if (!list.contains(mapping)) {
                 list.add(mapping);
-                bNewClass = true;
+                isNewClass = true;
             }
         }
-        return bNewClass;
+        
+        return isNewClass;
     }
 
-    static protected SessionFactory createFactory(Properties props, 
-            List<Class> list)
+    static protected SessionFactory createFactory(List<Class> list)
     {
         SessionFactory factory = null;
-        Configuration cfg
-                = new Configuration();
-        try {
-            if (props != null) {
-                cfg.addProperties(props);
-            }
+        Configuration cfg = new Configuration();
+        
+        try 
+        {
             configureFromFile(cfg);
-            for (Class mapping : list) {
+            for (Class mapping : list)
                 cfg.addAnnotatedClass(mapping);
-            }
+            
             factory = buildFactory(cfg);
         }
-        catch (Exception ex) {
+        catch (Exception ex) 
+        {
             // Make sure you log the exception, as it might be swallowed
             System.err.println("SessionFactory creation failed.\n" + ex);
             closeSessionFactory(factory);
             factory = null;
             //hibernate has a runtime exception for handling problems with
             //initialisation. Cast the ex to HibernateException and raise,
-            //since the root problem is a Hibernate problem.
+            //since the root problem is a HibernateHelper problem.
             throw new HibernateException(ex);
         }
         return factory;
@@ -97,15 +88,15 @@ public class HibernateHelper
 
     static protected void configureFromFile(Configuration cfg)
     {
-        try {
+        try 
+        {
             cfg.configure();
         }
         catch (HibernateException ex) {
-            if (ex.getMessage().equals(
-                    "/hibernate.cfg.xml not found")) {
+            if (ex.getMessage().equals("/hibernate.cfg.xml not found")) 
                 System.err.println("Warning:\n" + ex.getMessage());
-            }
-            else {
+            else
+            {
                 System.err.println("Error in hibernate configuration file:" + ex);
                 throw ex;
             }
@@ -116,14 +107,17 @@ public class HibernateHelper
             throws Exception
     {
         SessionFactory factory = null;
-        try {
+        try 
+        {
             factory = cfg.buildSessionFactory();
         }
-        catch (Exception ex) {
+        catch (Exception ex) 
+        {
             closeSessionFactory(factory);
             factory = null;
             throw ex;
         }
+        
         return factory;
     }
 
@@ -136,23 +130,26 @@ public class HibernateHelper
     static public void closeFactory() //Should be called when all servlets close.
     {                                 //When the web app is closed.
         //First, servlets will close, then hibernate
-        closeSessionFactory(sessionFactory);
+        closeSessionFactory(_sessionFactory);
     }
 
     static public void updateDB(Object obj)
     {
         Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        
+        try 
+        {
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             session.saveOrUpdate(obj);
 
             tx.commit();
-        } finally {
-            if (session != null) {
+        } 
+        finally 
+        {
+            if (session != null)
                 session.close();
-            }
         }
     }
 
@@ -160,36 +157,41 @@ public class HibernateHelper
     {
 
         Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        
+        try 
+        {
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
-            for (Object obj : list) {
+            for (Object obj : list)
                 session.saveOrUpdate(obj);
-            }
 
             tx.commit();
-        } finally {
-            if (session != null) {
+        } 
+        finally 
+        {
+            if (session != null)
                 session.close();
-            }
         }
     }
 
     static public void saveDB(Object obj)
     {
         Session session = null;
-        try {
-            session = sessionFactory.openSession();
+        
+        try 
+        {
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             session.save(obj);
 
             tx.commit();
-        } finally {
-            if (session != null) {
+        }
+        finally 
+        {
+            if (session != null)
                 session.close();
-            }
         }
     }
 
@@ -197,7 +199,7 @@ public class HibernateHelper
     {
         Session session = null;
         try {
-            session = sessionFactory.openSession();
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             session.delete(obj);
@@ -217,7 +219,7 @@ public class HibernateHelper
 
         Session session = null;
         try {
-            session = sessionFactory.openSession();
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             Criteria criteria
@@ -247,7 +249,7 @@ public class HibernateHelper
         int age = 0;
         Session session = null;
         try {
-            session = sessionFactory.openSession();
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             Criteria criteria
@@ -284,7 +286,7 @@ public class HibernateHelper
         Object result = null;
         Session session = null;
         try {
-            session = sessionFactory.openSession();
+            session = _sessionFactory.openSession();
             Transaction tx = session.beginTransaction();
 
             Criteria criteria
@@ -315,7 +317,7 @@ public class HibernateHelper
     static public Object getKeyData(Class beanClass, long itemId)
     {
         Object data = null;
-        Session session = sessionFactory.openSession();
+        Session session = _sessionFactory.openSession();
 
         data = session.get(beanClass, itemId);
 
@@ -326,6 +328,6 @@ public class HibernateHelper
 
     static public boolean isSessionOpen()
     {
-        return sessionFactory != null;
+        return _sessionFactory != null;
     }
 }

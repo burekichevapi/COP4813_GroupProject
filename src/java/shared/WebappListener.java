@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package hibernate;
+package shared;
 
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -40,7 +40,7 @@ public class WebappListener implements ServletContextListener {
       se.printStackTrace();
     }
     
-    hibernate.HibernateHelper.closeFactory(); //kills hibernate; called when all servlets close.
+    repository.HibernateHelper.closeFactory(); //kills hibernate; called when all servlets close.
   }
 }
 

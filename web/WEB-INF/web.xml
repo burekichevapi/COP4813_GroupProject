@@ -9,21 +9,8 @@
     </session-config>  
     
     <listener>
-        <listener-class>hibernate.WebappListener</listener-class> <!--Registers Listner with TomCat-->
+        <listener-class>shared.WebappListener</listener-class> <!--Registers Listner with TomCat-->
     </listener>
-    
-    <servlet>
-        <servlet-name>AccountController</servlet-name>
-        <servlet-class>Controllers.Account.AccountControllerFront</servlet-class>
-        <init-param>
-            <param-name>createTables</param-name>
-            <param-value>true</param-value> <!-- true = doesn't save data if server is restarted = create tables... use this only once when creating tables. -->
-        </init-param>                        <!-- fales = saves data to DB even if server is restarted = DONT create tables -->
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AccountController</servlet-name>
-        <url-pattern>/Controllers/Account/AccountControllerFront</url-pattern>
-    </servlet-mapping>
     
 </web-app>
 

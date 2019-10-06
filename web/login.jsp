@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>        
+        <title>Login</title>
         <link href="css/loginPage.css" rel="stylesheet">
     </head>
     <body class="text-center">

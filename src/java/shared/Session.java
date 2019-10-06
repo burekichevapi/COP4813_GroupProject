@@ -27,29 +27,24 @@ public class Session<C>
         _request = request;
     }
 
-    public boolean sessionObjectExisits(String sessionObjectName)
-    {
-        return _request.getSession().getAttribute(sessionObjectName) != null;
-    }
-
-    public <C> C getSessionData(State state, C sessionObject, String sessionObjectName)
+    public <C> C GetSessionData(State state, C sessionObject, String sessionObjectName)
     {
         C data = null;
 
-        if (state == State.READ) {
-            if (sessionObjectExisits(sessionObjectName)) {
+        if (state == State.READ)
+            if (sessionObjectExisits(sessionObjectName))
                 data = copyDataFromSession(sessionObject, sessionObject.getClass());
-            }
-        }
 
         return data;
     }
+    
+    private boolean sessionObjectExisits(String sessionObjectName)
+    { return _request.getSession().getAttribute(sessionObjectName) != null; }
 
-    public <C> C copyDataFromSession(C sessionObject, Class sessionControllerclazz)
+    private <C> C copyDataFromSession(C sessionObject, Class sessionControllerclazz)
     {
-        if (sessionObject.getClass() == sessionControllerclazz) {
+        if (sessionObject.getClass() == sessionControllerclazz)
             return ((C) sessionObject);
-        }
 
         return null;
     }

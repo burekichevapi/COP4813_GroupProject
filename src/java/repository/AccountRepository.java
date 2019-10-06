@@ -6,7 +6,6 @@
 package repository;
 
 import Domain.Account;
-import hibernate.HibernateHelper;
 import java.util.List;
 
 /**
@@ -15,21 +14,24 @@ import java.util.List;
  */
 public class AccountRepository
 {
-    public Account FindUserByEmail(String email)
+    public Account FindAccountByEmail(String email)
     {
         List<Account> usersInDB = HibernateHelper.getListData(Account.class);
 
-        for (Account user : usersInDB) {
-            if (IsFoundBy(email, user.getEmail())) {
+        for (Account user : usersInDB)
+            if (IsFoundBy(email, user.getEmail()))
                 return user;
-            }
-        }
 
         return null;
     }
-
-    private boolean IsFoundBy(String value, String value2)
+    
+    public void AddNewAccount(Account account)
     {
-        return value.compareToIgnoreCase(value2) == 0;
+        HibernateHelper.updateDB(account);
+    }
+
+    private boolean IsFoundBy(String lookingFor, String value2)
+    {
+        return lookingFor.compareToIgnoreCase(value2) == 0;
     }
 }

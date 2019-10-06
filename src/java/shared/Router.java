@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class Router<C>
 {
-
     private HttpServletRequest _request;
     private final String _errorPage = "error.jsp";
 
@@ -24,7 +23,7 @@ public class Router<C>
         _request = request;
     }
 
-    public String GetPageFor(C controller)
+    public String RouteDestinationPageFor(C controller)
     {
         Method[] methods = controller.getClass().getDeclaredMethods();
         
@@ -35,7 +34,7 @@ public class Router<C>
             if (annotation != null) 
                 if (_request.getParameter(annotation.buttonName()) != null)
                         try {
-                            return "/" + invokeButtonMethod(controller, method);
+                            return "/" + getJSPPageFrom(controller, method);
             }
             catch (IllegalAccessException | InvocationTargetException ex) {
                 System.err.println("Button Method Error." + ex);
@@ -46,12 +45,12 @@ public class Router<C>
         return _errorPage;
     }
 
-    private String invokeButtonMethod(C controller, Method buttonMethod)
+    private String getJSPPageFrom(C controller, Method method)
             throws IllegalAccessException, InvocationTargetException
     {
         String resultInvoke = "Could not invoke method";
         try {
-            resultInvoke = (String) buttonMethod.invoke(controller);
+            resultInvoke = (String) method.invoke(controller);
         }
         catch (IllegalAccessException ex) {
             System.err.println("(invoke) Button method is not public." + ex);
