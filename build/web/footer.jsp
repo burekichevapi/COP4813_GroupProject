@@ -30,30 +30,6 @@
                 <p>Blah Blah BLAH!!</p>
 
             </div>
-            <!-- Grid column -->
-            <div class="col-md-3 mb-md-0 mb-3">
-
-                <!-- Links -->
-                <h5 class="text-uppercase">Links</h5>
-
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="index.jsp">Home</a>
-                    </li>
-                    <li>
-                        <a href="about.jsp">About</a>
-                    </li>
-                    <li>
-                        <a href="contact.jsp">Contact</a>
-                    </li>
-                    <li>
-                        <a href="login.jsp">Login</a>
-                    </li>
-                    <li>
-                        <a href="#!">Something</a>
-                    </li>                    
-                </ul>
-            </div>
             <div class="col-md-3 mb-md-0 mb-3">
                 <p class="text-muted">&copy; 2019</p>
             </div>

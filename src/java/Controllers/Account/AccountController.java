@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import shared.Router;
 import shared.Session;
 import shared.DestinationPage;
-import shared.Validator;
+import shared.FormError;
 
 /**
  *
@@ -26,11 +26,11 @@ public class AccountController
     private HttpServlet _servlet;
     private HttpServletRequest _request;
     private HttpServletResponse _response;
-    private Session<AccountController> _session;
+    private Session _session;
     private Router<AccountController> _router;
     private AccountRepository _accountRepo;
-    private Account _user;
-    private Validator _validate;
+    private Account _account;
+    private FormError _formErrors;
 
     AccountController(HttpServlet servlet, HttpServletRequest request,
             HttpServletResponse response)
@@ -38,11 +38,11 @@ public class AccountController
         _servlet = servlet;
         _request = request;
         _response = response;
-        _session = new Session<AccountController>(_request);
+        _session = new Session(_request);
         _router = new Router<AccountController>(_request);
         _accountRepo = new AccountRepository();
-        _user = new Account();
-        _validate = new Validator();
+        _account = new Account();
+        _formErrors = new FormError();
     }
 
     static void initHibernate(HttpServlet servlet)
@@ -57,86 +57,115 @@ public class AccountController
 
     public void doGet()
             throws IOException, ServletException
-    {   
-        _request.getSession().setAttribute("user", _user);
+    {
+        _formErrors.clearErrors();
         
-        _user = (Account) _session.GetSessionData(Session.State.IGNORE, _user, "user");
+        _session.addToSession("user", _account);
         
         String page = _router.RouteDestinationPageFor(this);
         
-        _request.getRequestDispatcher(page)
-                .forward(_request, _response);
+        _request.getRequestDispatcher(page).forward(_request, _response);
     }
-
+ 
     public void doPost()
             throws ServletException, IOException
     {
-        _request.getSession().setAttribute("user", _user);
-        _request.getSession().setAttribute("errors", _validate);
-        
-        _user = (Account) _session.GetSessionData(Session.State.READ,
-                _user, "user");
-        
+        _formErrors.clearErrors();
+
         String page = _router.RouteDestinationPageFor(this);
-
-        _request.getRequestDispatcher(page)
-                .forward(_request, _response);
+        _session.addToSession("user", _account);
+        _session.addToSession("errors", _formErrors);
+        
+        _request.getRequestDispatcher(page).forward(_request, _response);
     }
-
-    public Account getUser()
-    { return _user; }
     
-    @DestinationPage(isDefault = true)
+    @DestinationPage(buttonName = "loginButton")
     public String logIn()
     {
-        if(_accountRepo.FindAccountByEmail(_user.getEmail()) == null)
-            return "registration.jsp";
+        _session.MapDataFromRequest(_account);
         
-        return "index.jsp";
-    }
-
-    @DestinationPage(buttonName = "loginButton")
-    public String index()
-    {
+        if(_accountRepo.isValidPassword(_account.getEmail(), _account.getPassword()))
+        {
+            _account = _accountRepo.FindAccountByEmail(_account.getEmail());
+            
+            return "index.jsp";
+        }
+        
+        _account = null;
+        _formErrors.addErrors("invalidCredentials", "Invalid login, please try again.");
+        
         return "login.jsp";
+    
     }
     
-    @DestinationPage(buttonName = "logOut")
-    public String logOut()
-    {
-        _request.getSession().removeAttribute("user");
-        _request.getSession().invalidate();
-        return "index.jsp";
-    }
-
     @DestinationPage(buttonName = "registerationButton")
     public String register()
     {
-        _session.MapDataFromRequest(_user);
+        _session.MapDataFromRequest(_account);
         
-        if(!_validate.isValid(_user) ||
-                _accountRepo.FindAccountByEmail(_user.getEmail()) != null)
+        if(!_formErrors.isValidObject(_account))
         {
-            _user = null;
+            _request.getSession().invalidate();
+            _account = null;
+            
+            return "registration.jsp";
+        }
+        if(_accountRepo.FindAccountByEmail(_account.getEmail()) != null
+                || _accountRepo.FindAccountByUserName(_account.getUserName()) != null)
+        {
+            _formErrors.addErrors("invalidRegistration", "This Email or User Name already"
+                    + "exists, try logging in.");
+            
+            _request.getSession().invalidate();
+            _account = null;
             
             return "registration.jsp";
         }
         
-        _accountRepo.AddNewAccount(_user);
+        _accountRepo.AddNewAccount(_account);
         
         return "index.jsp";
         
     }
     
-    @DestinationPage(buttonName = "signInButton")
-    public String signIn()
+    @DestinationPage(buttonName = "logOutButton")
+    public String logOut()
     {
-        _session.MapDataFromRequest(_user);
+        _request.getSession().invalidate();
+        return "index.jsp";
+    }
+    
+    @DestinationPage(buttonName = "editAccountButton")
+    public String editAccount()
+    {
+        return "editAccountPage.jsp";
+    }
+    
+    @DestinationPage(buttonName = "submitAccountEditsButton")
+    public String submitAccountEdits()
+    {
+        EditAccountDTO editAccountDTO = new EditAccountDTO();
+        _session.MapDataFromRequest(editAccountDTO);
         
-        if(_validate.isValid(_user))
-            return "success.jsp";
+        if(!_formErrors.isValidObject(editAccountDTO))
+            return "editAccountPage.jsp";
         
-        return "error.jsp";
+        _account = _accountRepo.FindAccountByEmail(editAccountDTO.getEmail());
+        
+        if(_account.passwordMatchs(editAccountDTO.getCurrentPassword())
+                && editAccountDTO.confirmedNewPassword())
+        {
+            _account.setPassword(editAccountDTO.getConfirmNewPassword());
+            _accountRepo.UpdateUser(_account);
+        }
+        
+        return "index.jsp";
+    }
+    
+    @DestinationPage(isDefault = true)
+    public String index()
+    {
+        return "login.jsp";
     }
 
 }

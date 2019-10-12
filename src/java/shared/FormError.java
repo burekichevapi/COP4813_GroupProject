@@ -16,7 +16,7 @@ import org.hibernate.validator.engine.PathImpl;
  *
  * @author Amer Delic
  */
-public class Validator
+public class FormError
 {
     private Map<String, String> _errorMap = new HashMap<String, String>();
     private static final javax.validation.Validator _VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
@@ -29,8 +29,13 @@ public class Validator
         if (_errorMap != null)
             _errorMap.clear();
     }
+    
+    public void addErrors(String errorType, String errorMessage)
+    {
+        _errorMap.put(errorType, errorMessage);
+    }
 
-    public boolean isValid(Object sessionObject)
+    public boolean isValidObject(Object sessionObject)
     {
         findErrorsIn(sessionObject); //Sets errors
 

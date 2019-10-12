@@ -23,6 +23,7 @@ public class Account
     private String _userName;
     private String _password;
     private String _email;
+    private String _aboutMe;
     
     @Id
     @GeneratedValue
@@ -58,4 +59,15 @@ public class Account
     
     public void setUserName(String userName)
     {_userName = userName;}
+    
+    public void setAboutMe(String aboutMe)
+    {_aboutMe = aboutMe;}
+    
+    public String getAboutMe()
+    {return _aboutMe;}
+    
+    public boolean passwordMatchs(String password)
+    {
+        return _password.compareTo(password) == 0;
+    }
 }

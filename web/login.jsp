@@ -4,6 +4,11 @@
     Author     : amerd
 --%>
 
+<%--    
+        Admin Email: Admin@test.com
+        Admin Password: Password123!
+        Admin Username: Admin123
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,12 +25,13 @@
             <input type="email" name="email" value="${user.getEmail()}" class="form-control" placeholder="Email address" autofocus>
             <label class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password" value="${user.getPassword()}"  class="form-control" placeholder="Password">
+            <div type="text"style="color:red">${errors.getErrors().invalidCredentials}</div>
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="rememberMe"> Remember me
                 </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" name="signInButton">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" name="loginButton">Login</button>
         </form>
         <div id="footer"></div>
         <script src="//code.jquery.com/jquery-3.3.1.js"></script>

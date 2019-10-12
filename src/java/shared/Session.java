@@ -7,46 +7,32 @@ package shared;
 
 import java.lang.reflect.InvocationTargetException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Amer Delic
  */
-public class Session<C>
+
+public class Session
 {
-
-    public static enum State
-    {
-        READ, IGNORE
-    }
-
     private HttpServletRequest _request;
-
+    
     public Session(HttpServletRequest request)
     {
         _request = request;
     }
-
-    public <C> C GetSessionData(State state, C sessionObject, String sessionObjectName)
-    {
-        C data = null;
-
-        if (state == State.READ)
-            if (sessionObjectExisits(sessionObjectName))
-                data = copyDataFromSession(sessionObject, sessionObject.getClass());
-
-        return data;
-    }
     
-    private boolean sessionObjectExisits(String sessionObjectName)
-    { return _request.getSession().getAttribute(sessionObjectName) != null; }
-
-    private <C> C copyDataFromSession(C sessionObject, Class sessionControllerclazz)
+    public void addToSession(String name, Object sessionObject)
     {
-        if (sessionObject.getClass() == sessionControllerclazz)
-            return ((C) sessionObject);
-
-        return null;
+        Object oldSessionObject = _request.getSession().getAttribute(name);
+        
+        if(oldSessionObject != null)
+        {
+            sessionObject = oldSessionObject;
+        }
+        
+        _request.getSession().setAttribute(name, sessionObject);
     }
 
     public void MapDataFromRequest(Object data)

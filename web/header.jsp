@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,23 +24,19 @@
             </form>
         </ul>
         <ul class="nav navbar-nav navbar-right d-flex">
-            <%
-                Object account = session.getAttribute("user");
-                if (account == null) {
-            %>
-            <li><a class="p-2 text-muted" href="registration.jsp">Register</a>
-            <a class="p-2 text-muted" href="login.jsp">Log in</a></li>
-            <%
-            }
-            else {
-            %>
-            <li><a class="p-2 text-muted">Welcome ${user.getUserName()}!</a>
-                <form action="AccountControllerFront" method="POST">
-                    <button type="submit" class="p-2 text-muted" name="logOut">Log out</button>
+
+            <c:if test = "${user.getUserName() == null}">
+                <li><a class="p-2 text-muted" href="registration.jsp">Register</a>
+                    <a class="p-2 text-muted" href="login.jsp">Log in</a></li>
+                </c:if>
+                <c:if test = "${user.getUserName() != null}">
+                <li><form action="AccountControllerFront" method="POST">
+                        <button type="submit" class="p-2 text-muted" name="editAccountButton">Welcome ${user.getUserName()}</button>
+                    </form></li>
+                <form action="AccountControllerFront" method="GET">
+                    <button type="submit" class="p-2 text-muted" name="logOutButton">Log out</button>
                 </form></li>
-            <%
-                }
-            %>
+            </c:if>
         </ul>
 
     </div>

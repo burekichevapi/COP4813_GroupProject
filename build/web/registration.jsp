@@ -27,6 +27,7 @@
                    name="password">
             <div type="text" style="color:red">${errors.getErrors().password}</div>
             <br>
+            <div type="text" style="color:red">${errors.getErrors().invalidRegistration}</div>
             <button class="btn btn-lg btn-primary btn-block" type="submit" 
                     name="registerationButton">Register</button>
         </form>
