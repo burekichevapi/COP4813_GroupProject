@@ -14,41 +14,48 @@ import javax.validation.constraints.Pattern;
  */
 public class EditAccountDTO
 {
-    private String _currentPassword;
-    private String _newPassword;
+    private String _oldPassword;
+    private String _password;
     private String _confirmNewPassword;
     private String _email;
+    private String _aboutMe;
     
-    public String getConfirmNewPassword()
+    public String getConfirmedNewPassword()
     { return _confirmNewPassword; }
 
     public void setConfirmNewPassword(String confirmNewPassword)
     { _confirmNewPassword = confirmNewPassword; }
 
-    public String getCurrentPassword()
-    { return _currentPassword; }
+    public String getOldPassword()
+    { return _oldPassword; }
 
-    public void setCurrentPassword(String currentPassword)
-    { _currentPassword = currentPassword; }
-
+    public void setOldPassword(String currentPassword)
+    { _oldPassword = currentPassword; }
+    
     @NotNull(message = "Can't be empty")
-    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w\\s]).{6,15}",
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w\\s]).{6,15}", 
             message = "Must be between 6 and 15 characters, with atleast 1 numeric, 1 lowercase,"
-                    + "1 uppercase, and 1 special character.")   
-    public String getNewPassword()
-    { return _newPassword; }
+                    + "1 uppercase, and 1 special character.")    
+    public String getPassword()
+    { return _password; }
 
-    public void setNewPassword(String newPassword)
-    { _newPassword = newPassword; }
+    public void setPassword(String newPassword)
+    { _password = newPassword; }
     
     public String getEmail()
-    {return _email;}
+    { return _email; }
     
     public void setEmail(String email)
-    {_email = email;}
+    { _email = email; }
+    
+    public void setAboutMe(String aboutMe)
+    {_aboutMe = aboutMe;}
+    
+    public String getAboutMe()
+    {return _aboutMe;}
     
     public boolean confirmedNewPassword()
     {
-        return _newPassword.compareTo(_confirmNewPassword) == 0;
+        return _password.compareTo(_confirmNewPassword) == 0;
     }
 }

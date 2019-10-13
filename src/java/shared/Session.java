@@ -7,7 +7,6 @@ package shared;
 
 import java.lang.reflect.InvocationTargetException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  *

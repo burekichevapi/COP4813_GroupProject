@@ -8,6 +8,10 @@
         Admin Email: Admin@test.com
         Admin Password: Password123!
         Admin Username: Admin123
+
+        Admin Email: Test@test.com
+        Admin Password: Password123$
+        Admin Username: Test123
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

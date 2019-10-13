@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <div id="header"></div>
 <form action="AccountControllerFront" method="POST">
@@ -30,13 +31,13 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label>UserName</label>
-                                                            <input class="form-control" type="text" name="userName" value="${user.getUserName()}">
+                                                            <input class="form-control" type="text" name="userName" value="${user.getUserName()}" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label>Email</label>
-                                                            <input class="form-control" type="text" name="email" value="${user.getEmail()}">
+                                                            <input class="form-control" type="text" name="email" value="${user.getEmail()}" readonly>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -45,6 +46,13 @@
                                                         <div class="form-group">
                                                             <label>About Me</label>
                                                             <textarea class="form-control" name="aboutMe" rows="5">${user.getAboutMe()}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="col d-flex justify-content-end">
+                                                            <button class="btn btn-primary" type="submit" name="updateAboutMeButton">Update About Me</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -57,22 +65,27 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label>Current Password</label>
-                                                            <input class="form-control" type="password" name="currentPassword" placeholder="Current Password">
+                                                            <div style="color:red"><c:out value="${errors.getErrors().wrongPassword}" /></div>
+                                                            <input class="form-control" type="password" name="oldPassword" placeholder="Current Password">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group">
-                                                            <label>New Password</label><div type="text"style="color:red">${errors.getErrors().newPassword}</div>
-                                                            <input class="form-control" type="password" name="newPassword" placeholder="New Password">
+                                                            <label>New Password</label>
+                                                            <div style="color:red"><c:out value="${errors.getErrors().password}" /></div>
+                                                            <div style="color:red"><c:out value="${errors.getErrors().passwordsNotEqual}" /></div>
+                                                            <input class="form-control" type="password" name="password" placeholder="New Password">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group">
-                                                            <label>Confirm Password</label><div type="text"style="color:red">${errors.getErrors().newPassword}</div>
+                                                            <label>Confirm Password</label>
+                                                            <div style="color:red"><c:out value="${errors.getErrors().password}" /></div>
+                                                            <div style="color:red"><c:out value="${errors.getErrors().passwordsNotEqual}" /></div>
                                                             <input class="form-control" type="password" name="confirmNewPassword" placeholder="Confirm New Password">
                                                         </div>
                                                     </div>
@@ -80,7 +93,7 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="col d-flex justify-content-end">
-                                                            <button class="btn btn-primary" type="submit" name="submitAccountEditsButton">Save Change</button>
+                                                            <button class="btn btn-primary" type="submit" name="changePasswordButton">Update Password</button>
                                                         </div>
                                                     </div>
                                                 </div>

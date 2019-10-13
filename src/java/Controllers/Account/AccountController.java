@@ -16,6 +16,7 @@ import shared.Router;
 import shared.Session;
 import shared.DestinationPage;
 import shared.FormError;
+import shared.Mapper;
 
 /**
  *
@@ -73,6 +74,7 @@ public class AccountController
         _formErrors.clearErrors();
 
         String page = _router.RouteDestinationPageFor(this);
+        
         _session.addToSession("user", _account);
         _session.addToSession("errors", _formErrors);
         
@@ -138,28 +140,61 @@ public class AccountController
     @DestinationPage(buttonName = "editAccountButton")
     public String editAccount()
     {
+        Mapper.MapDataFromRequest(_account, _request);
+        
         return "editAccountPage.jsp";
     }
-    
-    @DestinationPage(buttonName = "submitAccountEditsButton")
-    public String submitAccountEdits()
+    @DestinationPage(buttonName = "updateAboutMeButton")
+    public String updateAboutMe()
     {
         EditAccountDTO editAccountDTO = new EditAccountDTO();
-        _session.MapDataFromRequest(editAccountDTO);
-        
-        if(!_formErrors.isValidObject(editAccountDTO))
-            return "editAccountPage.jsp";
+        Mapper.MapDataFromRequest(editAccountDTO, _request);
         
         _account = _accountRepo.FindAccountByEmail(editAccountDTO.getEmail());
         
-        if(_account.passwordMatchs(editAccountDTO.getCurrentPassword())
-                && editAccountDTO.confirmedNewPassword())
+        _account.setAboutMe(editAccountDTO.getAboutMe());
+        _accountRepo.UpdateUser(_account);
+        _request.getSession().setAttribute("user", _account);
+        
+        return "editAccountPage.jsp";
+    }
+    
+    @DestinationPage(buttonName = "changePasswordButton")
+    public String changePassword() throws NoSuchMethodException
+    {
+        EditAccountDTO editAccountDTO = new EditAccountDTO();
+        Mapper.MapDataFromRequest(editAccountDTO, _request);        
+        
+        if(!_formErrors.isValidObject(editAccountDTO))
         {
-            _account.setPassword(editAccountDTO.getConfirmNewPassword());
+            _request.getSession().setAttribute("errors", _formErrors);
+
+            return "editAccountPage.jsp";
+        }
+        
+        _account = _accountRepo.FindAccountByEmail(editAccountDTO.getEmail());
+        
+        if(!_account.passwordMatchs(editAccountDTO.getOldPassword()))
+        {
+            _formErrors.addErrors("wrongPassword", "Incorrect Password.");
+            
+            _request.getSession().setAttribute("errors", _formErrors);
+        }
+        else if(!editAccountDTO.confirmedNewPassword())
+        {
+            _formErrors.addErrors("passwordsNotEqual", "Passwords don't match.");
+            
+            _request.getSession().setAttribute("errors", _formErrors);
+        }
+        else
+        {
+            _account.setPassword(editAccountDTO.getConfirmedNewPassword());
             _accountRepo.UpdateUser(_account);
         }
         
-        return "index.jsp";
+        _request.getSession().setAttribute("user", _account);
+        
+        return "editAccountPage.jsp";
     }
     
     @DestinationPage(isDefault = true)
