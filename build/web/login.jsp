@@ -26,9 +26,9 @@
               class="form-signin" >
             <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
             <label class="sr-only">Email address</label>
-            <input type="email" name="email" value="${user.getEmail()}" class="form-control" placeholder="Email address" autofocus>
+            <input type="email" name="email" value="${userEmailCookie.getValue()}" class="form-control" placeholder="Email address" autofocus>
             <label class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="password" value="${user.getPassword()}"  class="form-control" placeholder="Password">
+            <input type="password" id="inputPassword" name="password" value="${userPasswordCookie.getValue()}"  class="form-control" placeholder="Password">
             <div type="text"style="color:red">${errors.getErrors().invalidCredentials}</div>
             <div class="checkbox mb-3">
                 <label>

@@ -9,6 +9,7 @@ import repository.AccountRepository;
 import Domain.Account;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +33,8 @@ public class AccountController
     private AccountRepository _accountRepo;
     private Account _account;
     private FormError _formErrors;
+    private Cookie _userEmailCookie;
+    private Cookie _userPassword;
 
     AccountController(HttpServlet servlet, HttpServletRequest request,
             HttpServletResponse response)
@@ -65,6 +68,12 @@ public class AccountController
         
         String page = _router.RouteDestinationPageFor(this);
         
+        if(_userEmailCookie != null)
+        {
+            _session.addToSession("userEmailCookie", _userEmailCookie);
+            _session.addToSession("userPasswordCookie", _userPassword);            
+        }
+        
         _request.getRequestDispatcher(page).forward(_request, _response);
     }
  
@@ -78,17 +87,25 @@ public class AccountController
         _session.addToSession("user", _account);
         _session.addToSession("errors", _formErrors);
         
+        if(_userEmailCookie != null)
+        {
+            _session.addToSession("userEmailCookie", _userEmailCookie);
+            _session.addToSession("userPasswordCookie", _userPassword);            
+        }
+        
         _request.getRequestDispatcher(page).forward(_request, _response);
     }
     
     @DestinationPage(buttonName = "loginButton")
     public String logIn()
-    {
+    {        
         _session.MapDataFromRequest(_account);
         
         if(_accountRepo.isValidPassword(_account.getEmail(), _account.getPassword()))
         {
             _account = _accountRepo.FindAccountByEmail(_account.getEmail());
+            
+            setLoginCookies(_account.getEmail(), _account.getPassword());
             
             return "index.jsp";
         }
@@ -126,6 +143,8 @@ public class AccountController
         
         _accountRepo.AddNewAccount(_account);
         
+        setLoginCookies(_account.getEmail(), _account.getPassword());
+        
         return "index.jsp";
         
     }
@@ -133,7 +152,10 @@ public class AccountController
     @DestinationPage(buttonName = "logOutButton")
     public String logOut()
     {
+        _account = (Account)_request.getSession().getAttribute("user");
+        
         _request.getSession().invalidate();
+        setLoginCookies(_account.getEmail(), _account.getPassword());
         return "index.jsp";
     }
     
@@ -190,6 +212,7 @@ public class AccountController
         {
             _account.setPassword(editAccountDTO.getConfirmedNewPassword());
             _accountRepo.UpdateUser(_account);
+            setLoginCookies(_account.getEmail(), _account.getPassword());
         }
         
         _request.getSession().setAttribute("user", _account);
@@ -202,5 +225,20 @@ public class AccountController
     {
         return "login.jsp";
     }
+    
+    private void setLoginCookies(String userEmail, String userPassword)
+    {
+        _userEmailCookie = new Cookie("userEmail", userEmail);
+        _userPassword = new Cookie("userPassword", userPassword);
+            
+        _userEmailCookie.setMaxAge(-1); //Persist until Brower Shutdown
+        _userEmailCookie.setSecure(true);
+        _userPassword.setMaxAge(-1); //Persist until Brower Shutdown
+        _userPassword.setSecure(true);
+            
+        _response.addCookie(_userEmailCookie);
+        _response.addCookie(_userPassword);
+    }
+    
 
 }

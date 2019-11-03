@@ -35,7 +35,7 @@ public class EditAccountDTO
     @NotNull(message = "Can't be empty")
     @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\\w\\s]).{6,15}", 
             message = "Must be between 6 and 15 characters, with atleast 1 numeric, 1 lowercase,"
-                    + "1 uppercase, and 1 special character.")    
+                    + "1 uppercase, and 1 special character.")
     public String getPassword()
     { return _password; }
 
