@@ -30,11 +30,6 @@
             <label class="sr-only">Password</label>
             <input type="password" id="inputPassword" name="password" value="${userPasswordCookie.getValue()}"  class="form-control" placeholder="Password">
             <div type="text"style="color:red">${errors.getErrors().invalidCredentials}</div>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="rememberMe"> Remember me
-                </label>
-            </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit" name="loginButton">Login</button>
         </form>
         <div id="footer"></div>
