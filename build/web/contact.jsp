@@ -8,10 +8,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Contact</title>
+        <title>Contact Page</title>        
     </head>
     <body>
-        <h1>Contact Us</h1>
+        <div id="header"></div>
+        <div class="container">            
+            <h1>Contact Page</h1>
+            <div class="container-fluid">
+                <h4>Amer Delic</h4>
+                <ul>
+                    <li>Email: adelic@my.fsu.edu</li>
+                    <li>Phone: 727.555.5555</li>
+                </ul>
+                <h4>Chris Georgiades</h4>
+                <ul>
+                    <li>Email: cg16n@my.fsu.edu</li>
+                    <li>Phone: 727.555.5555</li>
+                </ul>   
+            </div>         
+        </div>
+        <div id="footer"></div>
+        <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+        <script>
+            $(function () {
+                $("#header").load("header.jsp");
+                $("#footer").load("footer.jsp");
+            });
+        </script>
     </body>
 </html>

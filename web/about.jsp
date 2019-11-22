@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>About Us</title>
         <script src="//code.jquery.com/jquery-3.3.1.js"></script>
         <script>
             $(function () {
@@ -36,11 +36,11 @@
                 </div>
 
                 <div class="col-xl-3 col-sm-6 mb-5">
-                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="#pic" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
-                        <h5 class="mb-0">Chris</h5><span class="small text-uppercase text-muted">Team Member</span>
+                    <div class="bg-white rounded shadow-sm py-5 px-4"><img src="https://www.madametussauds.com/media/799918/_dsc9072-et-mtsyd-2012.jpg?crop=0,0.0345712965058146,0,0.187574532113356&cropmode=percentage&width=584&height=643" alt="" width="100" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+                        <h5 class="mb-0">Chris Georgiades</h5><span class="small text-uppercase text-muted">Team Member</span>
                         <ul class="social mb-0 list-inline mt-3">
-                            <li class="list-inline-item"><a href="https://github.com/burekichevapi" class="social-link"><img src="css/pictures/GitHub-Mark-32px.png"></i></a></li>
-                            <li class="list-inline-item"><a href="https://www.linkedin.com/in/amer-delic-78647714a" class="social-link"><img src="css/pictures/linkedin-logo.png"></i></a></li>
+                            <li class="list-inline-item"><a href="https://github.com/" class="social-link"><img src="css/pictures/GitHub-Mark-32px.png"></i></a></li>
+                            <li class="list-inline-item"><a href="https://www.linkedin.com/" class="social-link"><img src="css/pictures/linkedin-logo.png"></i></a></li>
                         </ul>
                     </div>
                 </div>
