@@ -1,5 +1,5 @@
 
-package Complaint;
+package Domain;
 
 import java.util.Date;
 import javax.persistence.Column;

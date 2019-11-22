@@ -1,5 +1,6 @@
-package Complaint;
+package Domain;
 
+import Domain.Thread;
 import Domain.Account;
 import java.util.Date;
 import javax.persistence.Column;

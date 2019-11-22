@@ -6,8 +6,8 @@
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="connection.url">jdbc:mysql://localhost:3306/mysql?zeroDateTimeBehavior=convertToNull</property>
     <!--Add your MySQL Server url here-->
-    <property name="connection.username">bill</property>
-    <property name="connection.password">ZZWZH7Z3S7</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">Pies62sword?</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="current_session_context_class">thread</property>
     <property name="c3p0.min_size">1</property>

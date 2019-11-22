@@ -26,12 +26,12 @@
             <div class="col-md-6 mt-md-0 mt-3">
 
                 <!-- Content -->
-                <h5 class="text-uppercase">Add things for footer here</h5>
-                <p>Blah Blah BLAH!!</p>
+                <h5 class="text-uppercase">COP4813 - Group Project</h5>
+                <p>Complaints About Life</p>
 
             </div>
             <div class="col-md-3 mb-md-0 mb-3">
-                <p class="text-muted">&copy; 2019</p>
+                <p class="text-muted">cop4813&copy; 2019</p>
             </div>
             <!-- Grid column -->
 

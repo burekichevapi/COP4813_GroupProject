@@ -20,6 +20,9 @@ and open the template in the editor.
                 <label for="complaintBody"><strong>Complaint Body</strong></label>
                 <textarea class="form-control" id="complaintBody" rows="3"></textarea>
             </div>
+            <div>
+                <input type="button" class="btn btn-primary" name="postButton" value="Submit">
+            </div>
         </form>
         </div>
         <div id="footer"></div>

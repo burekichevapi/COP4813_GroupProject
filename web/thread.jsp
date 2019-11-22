@@ -30,6 +30,8 @@ and open the template in the editor.
             </c:forEach>
         </div>
     </div>
+    
+    
     <div id="footer"></div>
 
     <script src="//code.jquery.com/jquery-3.3.1.js"></script>
