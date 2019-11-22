@@ -1,4 +1,4 @@
-package Controllers.Post;
+package Controllers.Thread;
 
 import java.util.Properties;
 import javax.servlet.http.HttpServletRequest;
@@ -12,25 +12,25 @@ import shared.FormError;
 import shared.Mapper;
 
 import shared.Router;
-import Domain.Post;
+import Domain.Thread;
 import java.io.IOException;
 
-public class ControllerHelper {
+public class ThreadControllerHelper {
 
     private HttpServlet servlet_;
     private HttpServletRequest request_;
     private HttpServletResponse response_;
     private Session session_;
-    private Router<ControllerHelper> router_;
-    private Post post_;
+    private Router<ThreadControllerHelper> router_;
+    private Thread thread_;
 
-    ControllerHelper(HttpServlet servlet, HttpServletRequest request,
+    ThreadControllerHelper(HttpServlet servlet, HttpServletRequest request,
             HttpServletResponse response) {
         this.servlet_ = servlet;
         this.request_ = request;
         this.response_ = response;
-        this.router_ = new Router<ControllerHelper> (request_);
-        this.post_ = new Post();
+        this.router_ = new Router<ThreadControllerHelper> (request_);
+        this.thread_ = new Thread();
         this.session_ = new Session(request_);
     }
 
@@ -46,7 +46,7 @@ public class ControllerHelper {
     public void doGet()
             throws IOException, ServletException {
 
-        session_.addToSession("post", post_);
+        session_.addToSession("thread", thread_);
 
         String page = router_.RouteDestinationPageFor(this);
 
@@ -58,7 +58,7 @@ public class ControllerHelper {
 
         String page = router_.RouteDestinationPageFor(this);
 
-        session_.addToSession("post", post_);
+        session_.addToSession("thread", thread_);
 
         request_.getRequestDispatcher(page).forward(request_, response_);
     }

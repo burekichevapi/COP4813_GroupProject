@@ -11,22 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet(urlPatterns ="/Controller",
+@WebServlet(urlPatterns ="/PostController",
 initParams ={ @WebInitParam(name = "createTables", value = "true")})
 
-public class Controller extends HttpServlet {
+public class PostController extends HttpServlet {
 
     @Override
     public void init() {
-        ControllerHelper.initHibernate(this);
+        PostControllerHelper.initHibernate(this);
     }
 
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        ControllerHelper helper =
-                new ControllerHelper(this, request, response);
+        PostControllerHelper helper =
+                new PostControllerHelper(this, request, response);
         helper.doGet();
     }
 
@@ -34,8 +34,8 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        ControllerHelper helper =
-                new ControllerHelper(this, request, response);
+        PostControllerHelper helper =
+                new PostControllerHelper(this, request, response);
         helper.doPost();
     }
 }
