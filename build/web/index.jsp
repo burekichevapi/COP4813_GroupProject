@@ -6,6 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
+        <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
         <title>Complaints</title>        
     </head>
     <body>
