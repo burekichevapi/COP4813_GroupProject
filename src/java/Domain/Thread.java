@@ -44,4 +44,12 @@ public class Thread {
     public void setComplaintTitle(String complaintTitle) {
         this.complaintTitle_ = complaintTitle;
     }
+    
+    public Date getDate() {
+        return this.dateCreated_;
+    }
+    
+    public void setDate(Date date) {
+        this.dateCreated_ = date;
+    }
 }
