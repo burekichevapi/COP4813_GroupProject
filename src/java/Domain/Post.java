@@ -66,6 +66,13 @@ public class Post {
     public void setDate(Date date) {
         this.dateCreated_ = date;
     }
-            
+    
+    public String getPostBody() {
+        return this.postBody_;
+    }
+    
+    public void setPostBody(String postBody) {
+        this.postBody_ = postBody;
+    }           
 }
 
