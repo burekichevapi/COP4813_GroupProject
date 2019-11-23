@@ -29,6 +29,11 @@ public class Thread {
     @Column(name = "DATE", nullable = false, insertable = false)
     private Date dateCreated_;
     
+    public int getThreadId() {
+        return this.id_;
+    }
+    
+    
     public Account getAccount() {
         return this.userAccount_;
     } 

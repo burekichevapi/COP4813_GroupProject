@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package repository;
 
-/**
- *
- * @author CGeorgiades
- */
+import java.util.List;
+import java.util.ArrayList;
+
+
 public class ThreadRepository {
+    
+    public List<Thread> getThreads() {
+        
+        List<Thread> threads = HibernateHelper.getListData(Thread.class);
+        return threads;
+    }
     
 }

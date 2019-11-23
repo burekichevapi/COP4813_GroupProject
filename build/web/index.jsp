@@ -16,7 +16,7 @@ and open the template in the editor.
             <table class="table table-striped table-hover table-borderless">
                 <thead>
                     <tr>
-                        <th>Post</th>
+                        <th>Thread</th>
                         <th>User</th>
                         <th>Date</th>
                     </tr>
