@@ -1,5 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>Post New</title>        
@@ -9,8 +9,8 @@
         <div class="container">            
         <form>
             <div class="form-group">
-                <label for="complaintBody">Response to: <strong>Sample Thread 1</strong></label>
-                <textarea class="form-control" id="complaintBody" rows="3"></textarea>
+                <label for="complaintTitle"><strong>New Complaint</strong></label>
+                <input type="text" class="form-control" id="complaintTitle" placeholder="Name your complaint...">
             </div>
             <div>
                 <input type="button" class="btn btn-primary" name="postButton" value="Submit">

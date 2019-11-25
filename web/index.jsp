@@ -23,19 +23,19 @@ and open the template in the editor.
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Title of Post</td>
+                        <td><a href='#'>Complaint1</a></td>
                         <td>Amer</td>
-                        <td>9/18/2019</td>
+                        <td>Sep. 09, 2019, 09:10 a.m.</td>
                     </tr>
                     <tr>
-                        <td>NetBeans SUCKS!</td>
+                        <td><a href='#'>NetBeans rant!</a></td>
                         <td>Steven</td>
-                        <td>9/18/2019</td>
+                        <td>Nov. 10, 2019, 11:03 p.m.</td>
                     </tr>
                     <tr>
-                        <td>Another Title</td>
-                        <td>Another User</td>
-                        <td>9/18/2019</td>
+                        <td><a href="#">Sample Thread 1</a></td>
+                        <td>cgeorgiades</td>
+                        <td>Nov. 14, 2019, 10:0${3*i} p.m.</td>
                     </tr>
                 </tbody>
             </table>

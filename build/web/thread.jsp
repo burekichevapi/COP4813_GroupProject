@@ -13,17 +13,16 @@ and open the template in the editor.
         <div id="header"></div>
         <div class="container">
 
-            <h5 class="card-title">Thread Title</h5>
-            <h6 class="card-subtitle mb-2 text-muted">created by: username</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-
+            <h5 class="card-title">Sample Thread 1</h5>
+            <h6 class="card-subtitle mb-2 text-muted">created by: cgeorgiades</h6>
+            <strong><a href="#">New reply</a></strong><br>
             <c:forEach var= "i" begin="1" end = "5">
-                <div class="card" style="margin-left:<c:out value="${i * 20}"/>px;">
+                <div class="card">
                     <div class="card-body">
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text">Post body example ${i}.</p>
                         <ul class="list-inline">
-                            <li class="list-inline-item"><strong>username</strong></li>
-                            <li class="list-inline-item">post date</li>
+                            <li class="list-inline-item"><strong>user${i}</strong></li>
+                            <li class="list-inline-item">posted: Nov. 14, 2019, 10:0${3*i} p.m.</li>
                         </ul>
                     </div>
                 </div>

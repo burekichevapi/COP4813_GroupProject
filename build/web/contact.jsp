@@ -17,12 +17,12 @@
             <div class="container-fluid">
                 <h4>Amer Delic</h4>
                 <ul>
-                    <li>Email: adelic@my.fsu.edu</li>
+                    <li>Email: <a href="mailto:ad18cx@my.fsu.edu">ad18cx@my.fsu.edu</a></li>
                     <li>Phone: 727.555.5555</li>
                 </ul>
                 <h4>Chris Georgiades</h4>
                 <ul>
-                    <li>Email: cg16n@my.fsu.edu</li>
+                    <li>Email: <a href="mailto:cg16n@my.fsu.edu">cg16n@my.fsu.edu</a></li>
                     <li>Phone: 727.555.5555</li>
                 </ul>   
             </div>         
