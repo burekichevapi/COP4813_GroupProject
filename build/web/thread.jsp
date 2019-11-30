@@ -10,11 +10,11 @@ and open the template in the editor.
         <title>Complaints</title>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
         <%
-
+            /*
             PostRepository postRep = new PostRepository();
             postRep.getPostsByThread(session.getAttribute("complaint").getComplaintId());
             request.setAttribute("posts", postRep);
-
+            */
         %>
     </head>
     <body>
