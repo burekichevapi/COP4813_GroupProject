@@ -12,18 +12,22 @@ import java.util.List;
 public class PostRepository {
     
     
-    public List<Post> getPostsByThread(int threadId) {
+    public List<Post> getPostsByThread(int complaintId) {
         
 
         List<Post> posts = HibernateHelper.getListData(Post.class);
         List<Post> postsByThread = new ArrayList<>();
         
         for (Post p : posts) {
-            if (p.getThread().getThreadId() == threadId) {
+            if (p.getComplaintId() == complaintId) {
                 postsByThread.add(p);
             }
         }
         
         return postsByThread;
+    }
+    
+    public void newPost(Post post) {
+        HibernateHelper.updateDB(post);
     }
 }

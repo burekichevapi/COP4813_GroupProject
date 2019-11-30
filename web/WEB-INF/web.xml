@@ -12,5 +12,25 @@
         <listener-class>shared.WebappListener</listener-class> <!--Registers Listner with TomCat-->
     </listener>
     
+    <servlet>
+        <servlet-name>Complaint</servlet-name>
+        <servlet-class>Controllers.Complaint.ComplaintController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Complaint</servlet-name>
+        <url-pattern>/Group_Project/ComplaintController</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>Post</servlet-name>
+        <servlet-class>Controllers.Post.PostController</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Post</servlet-name>
+        <url-pattern>/Group_Project/PostController</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 

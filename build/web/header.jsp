@@ -16,7 +16,7 @@
     <div class="nav-scroller py-1 mb-2 navbar navbar-inverse">
         <ul class="nav d-flex">
             <a class="p-2 text-muted" href="index.jsp">Home</a>
-            <a class="p-2 text-muted" href="post.jsp">Post</a>
+            <a class="p-2 text-muted" href="newThread.jsp">Post</a>
             <a class="p-2 text-muted" href="about.jsp">About</a>
             <a class="p-2 text-muted" href="contact.jsp">Contact</a>
             <form class="form-inline mt-2 mt-md-0">

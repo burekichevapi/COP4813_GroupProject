@@ -1,6 +1,6 @@
 package Domain;
 
-import Domain.Thread;
+import Domain.Complaint;
 import Domain.Account;
 import java.util.Date;
 import javax.persistence.Column;
@@ -17,48 +17,37 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    private Integer id;
+    private Integer id_;
 
-    @Column(name = "THREAD", nullable = false)
-    private Thread thread_;
+    @Column(name = "COMPLAINTID", nullable = false)
+    private int complaintId_;
 
     @Column(name = "USER", nullable = false)
-    private Account userAccount_;
+    private String username_;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATE", nullable = false, insertable = false)
+    @Column(name = "DATE_CREATED", nullable = false)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateCreated_;
-    
-    @Column(name = "TITLE", nullable = true)
-    private String postTitle_;
     
     @Column(name = "BODY", nullable = false)
     private String postBody_;
     
-    public Thread getThread() {
-        return this.thread_;
+    public int getComplaintId() {
+        return this.complaintId_;
     }
     
-    public void setThread(Thread thread) {
-        this.thread_ = thread;
+    public void setComplaintId(int complaintId) {
+        this.complaintId_ = complaintId;
     }
     
-    public Account getUser() {
-        return this.userAccount_;
+    public String getUser() {
+        return this.username_;
     }
     
-    public void setUser(Account user) {
-        this.userAccount_ = user;
+    public void setUser(String username) {
+        this.username_ = username;
     }
-    
-    public String getTitle() {
-        return this.postTitle_;
-    }
-    
-    public void setTitle(String title) {
-        this.postTitle_ = title;
-    }
-    
+       
     public Date getDate() {
         return this.dateCreated_;
     }

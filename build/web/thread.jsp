@@ -15,7 +15,11 @@ and open the template in the editor.
 
             <h5 class="card-title">Sample Thread 1</h5>
             <h6 class="card-subtitle mb-2 text-muted">created by: cgeorgiades</h6>
-            <strong><a href="#">New reply</a></strong><br>
+            
+            <form method="GET" action="PostController">
+                <input type="submit" name="newPostButton" value="New Post" class="btn btn-primary"></strong><br><br>
+            </form>
+            
             <c:forEach var= "i" begin="1" end = "5">
                 <div class="card">
                     <div class="card-body">

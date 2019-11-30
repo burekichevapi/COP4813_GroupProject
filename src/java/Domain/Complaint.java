@@ -13,33 +13,32 @@ import javax.persistence.TemporalType;
 import Domain.Account;
 
 @Entity
-public class Thread {
+public class Complaint {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     private int id_;
     
     @Column(name = "USER", nullable = false)
-    private Account userAccount_;
+    private String username_;
     
     @Column(name = "TITLE", nullable = false)
     private String complaintTitle_;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "DATE", nullable = false, insertable = false)
+    @Column(name = "DATE", nullable = false)
     private Date dateCreated_;
     
-    public int getThreadId() {
+    public int getComplaintId() {
         return this.id_;
     }
     
-    
-    public Account getAccount() {
-        return this.userAccount_;
+    public String getAccount() {
+        return this.username_;
     } 
     
-    public void SetAccount(Account account) {
-        this.userAccount_ = account;
+    public void setAccount(String username) {
+        this.username_ = username;
     }
     
     public String getComplaintTitle() {

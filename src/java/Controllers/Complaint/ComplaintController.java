@@ -1,5 +1,4 @@
-
-package Controllers.Thread;
+package Controllers.Complaint;
 
 import repository.HibernateHelper;
 import java.io.IOException;
@@ -10,23 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@WebServlet(urlPatterns = "/ComplaintController",
+        initParams = {
+            @WebInitParam(name = "createTables", value = "true")})
 
-@WebServlet(urlPatterns ="/Controller",
-initParams ={ @WebInitParam(name = "createTables", value = "true")})
-
-public class ThreadController extends HttpServlet {
+public class ComplaintController extends HttpServlet {
 
     @Override
     public void init() {
-        ThreadControllerHelper.initHibernate(this);
+        ComplaintControllerHelper.initHibernate(this);
     }
 
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        ThreadControllerHelper helper =
-                new ThreadControllerHelper(this, request, response);
+        ComplaintControllerHelper helper
+                = new ComplaintControllerHelper(this, request, response);
         helper.doGet();
     }
 
@@ -34,8 +33,8 @@ public class ThreadController extends HttpServlet {
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        ThreadControllerHelper helper =
-                new ThreadControllerHelper(this, request, response);
+        ComplaintControllerHelper helper
+                = new ComplaintControllerHelper(this, request, response);
         helper.doPost();
     }
 }
