@@ -26,6 +26,9 @@ and open the template in the editor.
                 */
             %>
 
+            
+            
+            
             <table class="table table-striped table-hover table-borderless">
                 <thead>
                     <tr>

@@ -13,7 +13,6 @@ public class PostRepository {
     
     
     public List<Post> getPostsByThread(int complaintId) {
-        
 
         List<Post> posts = HibernateHelper.getListData(Post.class);
         List<Post> postsByThread = new ArrayList<>();
