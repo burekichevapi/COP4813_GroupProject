@@ -17,6 +17,10 @@ and open the template in the editor.
         <div id="header"></div>
         <div class="container">
             <h1>Complaints about life...</h1>
+            
+            <form action="ComplaintController" method="GET">
+                <input type="submit" name="complaintListButton" class="btn btn-primary" value="View Complaints">
+            </form>
 
             <%
                 /*

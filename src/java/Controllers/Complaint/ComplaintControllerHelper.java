@@ -58,6 +58,8 @@ public class ComplaintControllerHelper {
 
         session_.addToSession("complaint", complaint_);
         session_.MapDataFromRequest(this.complaint_);
+        session_.addToSession("complaintList", complaintRepository_);
+        session_.MapDataFromRequest(this.complaintRepository_);
         Mapper.MapDataFromRequest(this.account_, request_);
         account_ = (Account)request_.getSession().getAttribute("user");
 
@@ -71,6 +73,11 @@ public class ComplaintControllerHelper {
             complaintRepository_.addThread(complaint_);
 
             String page = router_.RouteDestinationPageFor(this);
+        }
+        else if (request_.getParameter("complaintListButton") != null) {
+            complaintRepository_.getComplaints();
+
+            address = "complaintList.jsp";
         }
         else {
             address = "index.jsp";

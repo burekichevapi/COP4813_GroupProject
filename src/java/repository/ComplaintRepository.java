@@ -8,7 +8,12 @@ public class ComplaintRepository {
 
     public List<Complaint> getComplaints() {
 
-        List<Complaint> complaints = HibernateHelper.getListData(Complaint.class);
+        List<Complaint> complaints = new ArrayList<>();
+        complaints = HibernateHelper.getListData(Complaint.class);
+        
+        if (complaints.isEmpty())
+            return null;
+        
         return complaints;
     }
 
