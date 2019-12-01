@@ -15,7 +15,9 @@ import shared.Mapper;
 import shared.Router;
 import Domain.Complaint;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import repository.ComplaintRepository;
 
@@ -39,9 +41,7 @@ public class ComplaintControllerHelper {
         this.complaint_ = new Complaint();
         this.session_ = new Session(request_);
         this.complaintRepository_ = new ComplaintRepository();
-        this.account_ =  new Account();
-        
-        session_.addToSession("user", account_);
+        this.account_ = new Account();
     }
 
     static void initHibernate(HttpServlet servlet) {
@@ -58,32 +58,46 @@ public class ComplaintControllerHelper {
 
         session_.addToSession("complaint", complaint_);
         session_.MapDataFromRequest(this.complaint_);
-        session_.addToSession("complaintList", complaintRepository_);
         session_.MapDataFromRequest(this.complaintRepository_);
         Mapper.MapDataFromRequest(this.account_, request_);
-        account_ = (Account)request_.getSession().getAttribute("user");
+        account_ = (Account) request_.getSession().getAttribute("user");
 
         String address = "index.jsp";
 
         if (request_.getParameter("newThreadButton") != null) {
             Date date_ = new Date();
             complaint_.setComplaintTitle(request_.getParameter("complaintTitle"));
-            complaint_.setAccount("testUser");
+            complaint_.setAccount(account_.getUserName());
             complaint_.setDate(date_);
+            session_.addToSession("complaint", complaint_);
             complaintRepository_.addThread(complaint_);
-
-            String page = router_.RouteDestinationPageFor(this);
-        }
-        else if (request_.getParameter("complaintListButton") != null) {
-            complaintRepository_.getComplaints();
-
+            List<Complaint> complaints = new ArrayList<>();
+            complaints = complaintRepository_.getComplaints();
+            session_.addToSession("complaintList", complaints);
             address = "complaintList.jsp";
-        }
+        } 
+        
+        else if (request_.getParameter("complaintListButton") != null) {
+            List<Complaint> complaints = new ArrayList<>();
+            complaints = complaintRepository_.getComplaints();
+            session_.addToSession("complaintList", complaints);
+            address = "complaintList.jsp";
+        } 
+        
+        else if (request_.getParameter("viewPost") != null) {
+            Complaint c = new Complaint();
+            c = complaintRepository_.getComplaintById(
+                    Integer.parseInt(request_.getParameter("viewPost"))
+            );
+            //complaint_.setComplaintTitle(c.getComplaintTitle());
+            //session_.addToSession("complaint", complaint_);
+            address = "thread.jsp";
+        } 
+        
         else {
             address = "index.jsp";
         }
-
-        //request_.getRequestDispatcher(page).forward(request_, response_);
+        
         RequestDispatcher dispatcher = request_.getRequestDispatcher(address);
         dispatcher.forward(request_, response_);
     }

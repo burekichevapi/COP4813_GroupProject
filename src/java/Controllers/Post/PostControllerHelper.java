@@ -16,7 +16,9 @@ import repository.PostRepository;
 import shared.Router;
 import Domain.Post;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 
 public class PostControllerHelper {
@@ -42,9 +44,6 @@ public class PostControllerHelper {
         this.postRepository_ = new PostRepository();
         this.account_ = new Account();
         this.complaint_ = new Complaint();
-        
-        session_.addToSession("user", account_);
-        
     }
 
     static void initHibernate(HttpServlet servlet) {
@@ -58,29 +57,43 @@ public class PostControllerHelper {
 
     public void doGet()
             throws IOException, ServletException {
+            
+        //session_.addToSession("post", post_);
+        //session_.MapDataFromRequest(this.postRepository_);
+        //Mapper.MapDataFromRequest(this.account_, request_);
+        account_ = (Account) request_.getSession().getAttribute("user");
 
-        session_.addToSession("post", post_);
-
-        String page = router_.RouteDestinationPageFor(this);
         String address = "post.jsp";
 
-        if (request_.getParameter("newPostButton") != null) {
-            session_.addToSession("complaint", complaint_);
-        } else if (request_.getParameter("postButton") != null) {
-            this.account_ = (Account) request_.getSession().getAttribute("user");
-            complaint_ = (Complaint) request_.getSession().getAttribute("complaint");
+        if (request_.getParameter("postButton") != null) {
+            complaint_ = (Complaint)request_.getSession().getAttribute("complaint");
             Date date_ = new Date();
-            post_.setPostBody(page);
+            post_.setPostBody(request_.getParameter("postBody"));
             post_.setDate(date_);
             post_.setComplaintId(complaint_.getComplaintId());
-            // issues getting user from session!
-            //post_.setUser(account_.getUserName());
-            post_.setUser("testUser");
+            post_.setUser(account_.getUserName());
             postRepository_.newPost(post_);
-            address = "index.jsp";
-        } else {
+            address = "thread.jsp";
+
+        } 
+        else if(request_.getParameter("newPostButton") != null) {
+            address = "post.jsp";
+        }
+        
+        else if (request_.getParameter("showPosts") != null) {
+           
+            List<Post> posts = new ArrayList<>();
+            //complaint_ = (Complaint) request_.getSession().getAttribute("complaint");
+            posts = postRepository_.getPostsByThread(complaint_.getComplaintId());
+            session_.addToSession("postList", posts);
+            address = "thread.jsp";
+        } 
+        
+        else {
             address = "index.jsp";
         }
+
+
         RequestDispatcher dispatcher = request_.getRequestDispatcher(address);
         dispatcher.forward(request_, response_);
     }

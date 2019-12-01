@@ -19,10 +19,6 @@
             <a class="p-2 text-muted" href="newThread.jsp">Post</a>
             <a class="p-2 text-muted" href="about.jsp">About</a>
             <a class="p-2 text-muted" href="contact.jsp">Contact</a>
-            <form class="form-inline mt-2 mt-md-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search Posts" aria-label="Search">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
-            </form>
         </ul>
         <ul class="nav navbar-nav navbar-right d-flex">
 

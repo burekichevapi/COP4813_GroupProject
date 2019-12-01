@@ -1,4 +1,3 @@
-<%@page import="repository.PostRepository"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -9,13 +8,6 @@ and open the template in the editor.
     <head>
         <title>Complaints</title>
         <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-        <%
-            /*
-            PostRepository postRep = new PostRepository();
-            postRep.getPostsByThread(session.getAttribute("complaint").getComplaintId());
-            request.setAttribute("posts", postRep);
-            */
-        %>
     </head>
     <body>
         <div id="header"></div>
@@ -26,15 +18,16 @@ and open the template in the editor.
 
             <form method="GET" action="PostController">
                 <input type="submit" name="newPostButton" value="New Post" class="btn btn-primary"></strong><br><br>
+                <input type="submit" name="showPosts" value="Show Posts" class="btn btn-primary"></strong><br><br>
             </form>
 
-            <c:forEach var= "i" begin="1" end = "5">
+            <c:forEach var= "post" items="${postList}">
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">Post body example ${i}.</p>
                         <ul class="list-inline">
-                            <li class="list-inline-item"><strong>user${i}</strong></li>
-                            <li class="list-inline-item">posted: Nov. 14, 2019, 10:0${3*i} p.m.</li>
+                            <li class="list-inline-item"><strong>${post.getUser()}</strong></li>
+                            <li class="list-inline-item">${post.getDate()}</li>
                         </ul>
                     </div>
                 </div>

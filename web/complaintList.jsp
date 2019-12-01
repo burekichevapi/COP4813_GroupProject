@@ -24,19 +24,31 @@ and open the template in the editor.
                         <th>Thread</th>
                         <th>User</th>
                         <th>Date</th>
+                        <th>Read</th>
                     </tr>
                 </thead>
 
-                ${complaintList}
+                <c:forEach var="complaints" items="${complaintList}">
+                    <tr>
+                        <td>${complaints.getComplaintTitle()}</td>
+                        <td>${complaints.getAccount()}</td>
+                        <td>${complaints.getDate()}</td>
+                    <form action="ComplaintController" method="GET">
+                        <td><button type="submit" name="viewPost" value="${complaints.getComplaintId()}" class="btn btn-primary">Read Post</button></td>
+                    </form>
 
-                <div id="footer"></div>
+                    </tr>
+                </c:forEach>
+            </table>
 
-                <script src="//code.jquery.com/jquery-3.3.1.js"></script>
-                <script>
-                    $(function () {
-                        $("#header").load("header.jsp");
-                        $("#footer").load("footer.jsp");
-                    });
-                </script>
-                </body>
-                </html>
+            <div style="z-index: 99;" id="footer"></div>
+
+            <script src="//code.jquery.com/jquery-3.3.1.js"></script>
+            <script>
+                $(function () {
+                    $("#header").load("header.jsp");
+                    $("#footer").load("footer.jsp");
+                });
+            </script>
+    </body>
+</html>
